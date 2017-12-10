@@ -74,18 +74,13 @@ public class gameInit {
             System.out.println("You need to set a " + i + " block ship now, please enter your index for it");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            String formattedInput = "" + input.charAt(0) + input.charAt(2) + input.charAt(4) + input.charAt(6);
             if (input.length() != 7) {
                 System.out.println("Your Total format is not correct, please enter again");
                 continue;
             }
             try {
-                int indexNum = Integer.parseInt(formattedInput);
                 gameMap.setShip(input.charAt(0) - '0', input.charAt(2) - '0',
                         input.charAt(4) - '0', input.charAt(6) - '0', i);
-            } catch (NumberFormatException e) {
-                System.out.println("Your Index Number format is not correct, please enter again");
-                continue;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 continue;

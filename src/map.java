@@ -37,26 +37,9 @@ public class map {
     }
 
 
-
-
-    public boolean setHeight(final int setHeight) throws Exception {
-        if (setHeight >= MIN_HEIGHT && setHeight <= MAX_HEIGHT) {
-            this.height = setHeight;
-            return true;
-        }
-        throw new Exception("Height out of Range(10-20)!");
-    }
-
-    public boolean setWidth(final int setWidth) throws Exception {
-        if (setWidth >= MIN_WIDTH && setWidth <= MAX_WIDTH) {
-            this.width = setWidth;
-            return true;
-        }
-        throw new Exception("Width out of Range(10-20)!");
-    }
-
     public void setBoard(final int setHeight, final int setWidth) throws Exception{
-        if (setHeight(setHeight) && setWidth(setWidth)) {
+        if (setHeight >= MIN_HEIGHT && setHeight <= MAX_HEIGHT
+                && setWidth >= MIN_WIDTH && setWidth <= MAX_WIDTH) {
             boardHasBeenSet = true;
             board = new int[width][height];
             hittedboard = new int[width][height];
