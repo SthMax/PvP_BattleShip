@@ -54,13 +54,9 @@ public class gameInit {
     }
 
     private void mapInit() {
-        try {
-            gameMap = new map(10, 10);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        gameMap = new map(10, 10);
 
-        System.out.println("A 10*10 map is initialized.");
+        System.out.println("A " + gameMap.getWidth() + "*" + gameMap.getHeight() + " map is initialized.");
         System.out.println("Please Enter Your ship's location using four numbers.");
         System.out.println("First two for the index of the head of the ship.");
         System.out.println("Next two for the index of the tail of the ship.");
