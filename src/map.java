@@ -41,6 +41,8 @@ public class map {
         if (setHeight >= MIN_HEIGHT && setHeight <= MAX_HEIGHT
                 && setWidth >= MIN_WIDTH && setWidth <= MAX_WIDTH) {
             boardHasBeenSet = true;
+            width = setWidth;
+            height = setHeight;
             board = new int[width][height];
             hittedboard = new int[width][height];
             Arrays.fill(board, -1);
