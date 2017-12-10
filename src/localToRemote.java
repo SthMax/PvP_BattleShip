@@ -55,7 +55,7 @@ public class localToRemote extends Thread {
 
     private void shootMethod(String shoot) {
         try {
-            sender.sender("shoot\n");
+            sender.sender("shoot");
             System.out.println(sender.receiver());
             String indexNum, received;
             while (true) {
@@ -70,7 +70,7 @@ public class localToRemote extends Thread {
                 }
                 break;
             }
-            sender.sender(indexNum + "\n");
+            sender.sender(indexNum);
             received = sender.receiver();
             if(received.equals("Yes")) {
                 System.out.println("You Have successfully hitted "

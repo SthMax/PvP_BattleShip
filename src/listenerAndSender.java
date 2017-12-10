@@ -23,7 +23,7 @@ public class listenerAndSender extends Thread {
         System.out.println("Receiver & Sender Established");
     }
 
-    public synchronized String receiver() throws IOException {
+    public String receiver() throws IOException {
         try {
             String order = inputStream.readLine();
             System.out.println("Order Received: " + order);
@@ -34,7 +34,7 @@ public class listenerAndSender extends Thread {
         throw new IOException();
     }
 
-    public synchronized void sender(String input) throws Exception {
+    public void sender(String input) throws Exception {
         input += System.lineSeparator();
         try {
             outputStream.write(input.getBytes(Charset.forName("UTF-8")));
