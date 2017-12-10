@@ -80,12 +80,16 @@ public class map {
         // class 'ship' needed;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                board[i][j] = ship;
+                board[i-1][j-1] = ship;
                 shipSpacesCount++;
             }
         }
         System.out.println("The ship has been successfully set on "
                 + x1 + " " + y1 + " to " + x2 + " " + y2);
+
+        System.out.println("Here is your Map: ");
+
+        this.printMap();
 
         if (shipLength == 1) {
             started = true;
@@ -113,9 +117,9 @@ public class map {
         if (!started) {
             throw new Exception("There is no winner before a game started!");
         }
-        for (int i = 0; i <= width; i++) {
-            for (int j = 0; j <= height; j++) {
-                if (board[i][j] == ship) {
+        for (int i = 1; i <= width; i++) {
+            for (int j = 1; j <= height; j++) {
+                if (board[i-1][j-1] == ship) {
                     return false;
                 }
             }
@@ -126,18 +130,20 @@ public class map {
     }
 
     public void printMap() {
-        for (int i = 0; i < board[0].length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[j][i] == empty_space) {
+        System.out.println();
+        for (int i = 1; i <= height; i++) {
+            for (int j = 1; j <= width; j++) {
+                if (board[j-1][i-1] == empty_space) {
                     System.out.print(" ");
-                } else if (board[j][i] == ship) {
+                } else if (board[j-1][i-1] == ship) {
                     System.out.print("O");
-                } else if (board[j][i] == explode) {
+                } else if (board[j-1][i1] == explode) {
                     System.out.print("X");
                 }
             }
             System.out.println();
         }
+        System.out.println();
     }
 
 
