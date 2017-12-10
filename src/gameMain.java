@@ -27,7 +27,7 @@ public class gameMain {
 
             String keyboardInput = s.nextLine();
             commandSwitcher(keyboardInput.toLowerCase());
-
+            //testchanges
         }
     }
 
