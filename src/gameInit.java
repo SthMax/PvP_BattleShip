@@ -54,7 +54,8 @@ public class gameInit {
     }
 
     private void mapInit() {
-        gameMap = new map(10, 10);
+        int value = 10;
+        gameMap = new map(value,value);
 
         System.out.println("A " + gameMap.getWidth() + "*" + gameMap.getHeight() + " map is initialized.");
         System.out.println("Please Enter Your ship's location using four numbers.");
