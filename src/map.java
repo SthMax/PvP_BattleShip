@@ -32,12 +32,12 @@ public class map {
         return width;
     }
 
-    public map(int inputHeight, int inputWidth) {
+    public map(int inputHeight, int inputWidth) throws Exception {
             setBoard(inputHeight, inputWidth);
     }
 
 
-    public void setBoard(final int setHeight, final int setWidth) {
+    public void setBoard(final int setHeight, final int setWidth) throws Exception {
         if (setHeight >= MIN_HEIGHT && setHeight <= MAX_HEIGHT
                 && setWidth >= MIN_WIDTH && setWidth <= MAX_WIDTH) {
             boardHasBeenSet = true;
@@ -47,7 +47,9 @@ public class map {
             hittedboard = new int[width][height];
             Arrays.fill(board, -1);
             Arrays.fill(hittedboard, -1);
+            return;
         }
+        throw new Exception("setBoard Error! Invalid width/height!");
     }
 
     public void setShip(final int x1, final int y1, final int x2, final int y2, final int shipLength) throws Exception {
