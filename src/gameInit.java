@@ -28,7 +28,7 @@ public class gameInit {
         }
         System.out.println("Waiting for the other player...");
         try {
-            lAS.sender("test");
+            lAS.sender("test\n");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
