@@ -31,10 +31,24 @@ public class localToRemote extends Thread {
     private void commandSwitcher(String s) {
         if (s.equals("help")) {
             helpMethod();
-        } else if () {
-
+        } else if (s.equals("shoot")) {
+            shootMethod();
         } else {
             System.out.println("Illegal Command, please type 'help' for help.");
         }
+    }
+
+    private void helpMethod() {
+        System.out.println("Now Displaying the in game helper...\n\n" +
+                "Here are the commands\n\n" +
+                "To display this help message, type 'help'\n" +
+                "To shoot your opponent, type 'shoot'\n" +
+                "To display your map, type 'display'\n" +
+                "To display your shooted map, type 'displayshooted'\n"
+        );
+    }
+
+    private void shootMethod() {
+        return;
     }
 }

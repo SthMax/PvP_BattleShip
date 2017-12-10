@@ -101,7 +101,7 @@ public class gameInit {
 
 
     private void helpMethod() {
-        System.out.println("Now Displaying the game helper...\n\n" +
+        System.out.println("Now Displaying the before game helper...\n\n" +
                 "For Battleship Game info, you can check Wiki.\n" +
                 "First you need to build a game map which is 10x10 and some ships.\n" +
                 "Then Shoot your opponent's ship\n" +
