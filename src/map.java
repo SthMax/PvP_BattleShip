@@ -89,7 +89,7 @@ public class map {
 
         System.out.println("Here is your Map: ");
 
-        this.printMap();
+        this.printMap(true);
 
         if (shipLength == 1) {
             started = true;
@@ -105,6 +105,7 @@ public class map {
         if (x > width || y > height) {
             throw new Exception("This shot is out of map");
         }
+
 
         if (board[x-1][y-1] == ship) {
             board[x-1][y-1] = explode;
@@ -129,15 +130,28 @@ public class map {
 
     }
 
-    public void printMap() {
+    public void printMap(boolean localOrHitted) {
+        int[][] outPutMap;
+        if (localOrHitted) {
+            outPutMap = this.board;
+        } else {
+            outPutMap = this.hittedboard;
+        }
         System.out.println();
+        System.out.println("  1234567890\n");
         for (int i = 1; i <= height; i++) {
+            if (i != height) {
+                System.out.println(i + " ");
+            } else {
+                System.out.println(0 + " ");
+            }
+
             for (int j = 1; j <= width; j++) {
-                if (board[j-1][i-1] == empty_space) {
+                if (outPutMap[j-1][i-1] == empty_space) {
                     System.out.print(" ");
-                } else if (board[j-1][i-1] == ship) {
+                } else if (outPutMap[j-1][i-1] == ship) {
                     System.out.print("O");
-                } else if (board[j-1][i-1] == explode) {
+                } else if (outPutMap[j-1][i-1] == explode) {
                     System.out.print("X");
                 }
             }

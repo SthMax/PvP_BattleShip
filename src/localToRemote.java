@@ -3,36 +3,41 @@ import java.util.Scanner;
 public class localToRemote extends Thread {
     private listenerAndSender sender;
     private map localMap;
+    private Scanner s;
 
     public localToRemote(listenerAndSender input, map inputMap) {
         try {
             this.sender = input;
             this.localMap = inputMap;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
 
     @Override
     public void run() {
-        Scanner s = new Scanner(System.in);
+        s = new Scanner(System.in);
         try {
             while(!localMap.getWinner()) {
                 String command = s.nextLine();
                 commandSwitcher(command.toLowerCase());
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
 
-    private void commandSwitcher(String s) {
-        if (s.equals("help")) {
+    private void commandSwitcher(String str) {
+        if (str.equals("help")) {
             helpMethod();
-        } else if (s.equals("shoot")) {
-            shootMethod();
+        } else if (str.equals("shoot")) {
+            shootMethod(str);
+        } else if (str.equals("display")) {
+            localMap.printMap(true);
+        } else if (str.equals("displayshooted")) {
+            localMap.printMap(false);
         } else {
             System.out.println("Illegal Command, please type 'help' for help.");
         }
@@ -48,7 +53,37 @@ public class localToRemote extends Thread {
         );
     }
 
-    private void shootMethod() {
+    private void shootMethod(String shoot) {
+        try {
+            sender.sender(shoot+"\n");
+            System.out.println(sender.receiver());
+            String indexNum, received;
+            while (true) {
+                System.out.println("Please Input Your Index as 'x,y'");
+                indexNum = s.nextLine();
+                try {
+                    localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0');
+                } catch (Exception f) {
+                    f.printStackTrace();
+                    System.out.println("Please Try again\n");
+                    continue;
+                }
+                break;
+            }
+            sender.sender(indexNum + "\n");
+            received = sender.receiver();
+            if(received.equals("Yes")) {
+                System.out.println("You Have successfully hitted "
+                        + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+            } else {
+                System.out.println("There is nothing on "
+                        + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return;
     }
 }

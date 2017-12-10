@@ -28,7 +28,7 @@ public class gameInit {
         }
         System.out.println("Waiting for the other player...");
         try {
-            lAS.sender("test\n");
+            lAS.sender("The Other Side is Ready\n");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -93,7 +93,7 @@ public class gameInit {
         System.out.println("Your map is initialized\nHere Is Your Map");
         System.out.println("O stands for your blocks not being hit, X stands for your blocks being hit");
         this.mapInitialized = true;
-        gameMap.printMap();
+        gameMap.printMap(true);
     }
 
 
