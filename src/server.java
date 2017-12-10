@@ -13,7 +13,7 @@ public class server {
                 System.out.println("Waiting for Connection...");
                 ServerSocket server = new ServerSocket(portNum);
                 Socket serversocket = server.accept();
-                gameMain gameServer = new gameMain(serversocket);
+                gameInit gameServer = new gameInit(serversocket);
                 return;
             } catch (Exception e) {
                 System.out.println("Server Mode Initialized Error: " + e.getMessage());

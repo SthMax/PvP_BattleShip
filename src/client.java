@@ -12,12 +12,12 @@ public class client {
             String hostIP = s.nextLine();
             System.out.println("Host Port: ");
             int portNum = java.lang.Integer.parseInt(s.nextLine());
-            Socket client = null;
+            Socket clientSocket;
             try {
                 System.out.println("Connecting to: " + hostIP + " Using port: " + portNum);
-                client = new Socket();
-                client.connect(new InetSocketAddress(hostIP, portNum), connection_time_out);
-                gameMain gameServer = new gameMain(client);
+                clientSocket = new Socket();
+                clientSocket.connect(new InetSocketAddress(hostIP, portNum), connection_time_out);
+                gameInit gameCilent = new gameInit(clientSocket);
                 return;
             } catch (Exception e) {
                 System.out.println("Client Mode Initialized Error: " + e.getMessage());

@@ -1,11 +1,11 @@
 public class remoteToLocal extends Thread {
-    private listenerAndSender sender;
+    private listenerAndSender receiver;
     private map localMap;
 
     public remoteToLocal(listenerAndSender input, map inputMap) {
         try {
-            this.sender = input;
-            this.localMap = inputMap.getMap();
+            this.receiver = input;
+            this.localMap = inputMap;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -16,4 +16,6 @@ public class remoteToLocal extends Thread {
     public void run() {
 
     }
+
+
 }
