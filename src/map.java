@@ -46,7 +46,7 @@ public class map {
             board = new int[width][height];
             hittedboard = new int[width][height];
             Arrays.fill(board, -1);
-            Arrays.fill(board, -1);
+            Arrays.fill(hittedboard, -1);
             return;
         }
         throw new Exception("SetBoard ERROR !");

@@ -18,9 +18,9 @@ public class gameInit {
     }
 
     private void initGameMethod() throws IOException{
+        lAS.run();
         System.out.println("Please Enter the Command");
         System.out.println("Enter 'help' to get help");
-        lAS.run();
         while(!mapInitialized) {
             Scanner s = new Scanner(System.in);
             String keyboardInput = s.nextLine();
