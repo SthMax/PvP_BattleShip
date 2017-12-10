@@ -58,7 +58,7 @@ public class gameInit {
         try {
             gameMap = new map(value,value);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
 
@@ -84,7 +84,7 @@ public class gameInit {
                 gameMap.setShip(input.charAt(0) - '0', input.charAt(2) - '0',
                         input.charAt(4) - '0', input.charAt(6) - '0', i);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
                 continue;
             }
             i--;

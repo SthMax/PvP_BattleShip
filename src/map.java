@@ -7,9 +7,9 @@ public class map {
     private static final int MIN_HEIGHT = 10;
     private static final int MAX_WIDTH = 20;
     private static final int MIN_WIDTH = 10;
-    private static final int empty_space = -1;
+    private static final int empty_space = 0;
     private static final int ship = 1;
-    private static final int explode = 0;
+    private static final int explode = -1;
 
     private int height;
     private int width;
@@ -40,8 +40,6 @@ public class map {
             height = setHeight;
             board = new int[width][height];
             hittedboard = new int[width][height];
-            Arrays.fill(board, empty_space);
-            Arrays.fill(hittedboard, empty_space);
             return;
         }
         throw new Exception("setBoard Error! Invalid width/height!");
