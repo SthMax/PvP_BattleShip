@@ -141,9 +141,9 @@ public class map {
         System.out.println("  1234567890\n");
         for (int i = 1; i <= height; i++) {
             if (i != height) {
-                System.out.println(i + " ");
+                System.out.print(i + " ");
             } else {
-                System.out.println(0 + " ");
+                System.out.print(0 + " ");
             }
 
             for (int j = 1; j <= width; j++) {
