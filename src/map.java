@@ -137,7 +137,7 @@ public class map {
                     System.out.print(" ");
                 } else if (board[j-1][i-1] == ship) {
                     System.out.print("O");
-                } else if (board[j-1][i1] == explode) {
+                } else if (board[j-1][i-1] == explode) {
                     System.out.print("X");
                 }
             }
