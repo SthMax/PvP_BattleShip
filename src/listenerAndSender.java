@@ -34,7 +34,8 @@ public class listenerAndSender extends Thread {
         throw new IOException();
     }
 
-    public synchronized void sender(final String input) throws Exception {
+    public synchronized void sender(String input) throws Exception {
+        input += System.lineSeparator();
         try {
             outputStream.write(input.getBytes(Charset.forName("UTF-8")));
             return;

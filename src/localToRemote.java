@@ -55,7 +55,7 @@ public class localToRemote extends Thread {
 
     private void shootMethod(String shoot) {
         try {
-            sender.sender(shoot+"\n");
+            sender.sender("shoot\n");
             System.out.println(sender.receiver());
             String indexNum, received;
             while (true) {
