@@ -17,17 +17,17 @@ public class gameMain {
     private void mainGameMethod() throws IOException{
         System.out.println("Please Enter the Commmand");
         System.out.println("Enter 'Help' to get help");
+        lAS.run();
         while(true) {
-            lAS.run();
+
 
 
             Scanner s = new Scanner(System.in);
 
-            /*
+
             String keyboardInput = s.nextLine();
-            String webInput = lAS.receiver();
             commandSwitcher(keyboardInput.toLowerCase());
-            */
+
         }
     }
 
