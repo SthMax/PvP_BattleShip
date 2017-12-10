@@ -6,6 +6,7 @@ public class gameMain {
     private Socket connection;
     private static boolean mapInitialized = false;
     private listenerAndSender lAS;
+    private map gameMap;
 
     public gameMain(Socket s) throws IOException{
         System.out.println("Connected, Starting Game.");
@@ -15,19 +16,14 @@ public class gameMain {
     }
 
     private void mainGameMethod() throws IOException{
-        System.out.println("Please Enter the Commmand");
+        System.out.println("Please Enter the Command");
         System.out.println("Enter 'Help' to get help");
         lAS.run();
         while(true) {
-
-
-
             Scanner s = new Scanner(System.in);
-
-
             String keyboardInput = s.nextLine();
             commandSwitcher(keyboardInput.toLowerCase());
-            //testchanges
+
         }
     }
 
@@ -35,10 +31,19 @@ public class gameMain {
         if (s.equals("help")) {
             helpMethod();
             return;
+        } else if (s.equals("init")) {
+            mapInit();
+            return;
         }
     }
 
     private void mapInit() {
+        if (!mapInitialized) {
+            System.out.println("Map has been already initialized!");
+        }
+
+        System.out.println("A 10*10 map is ");
+
 
     }
 
@@ -50,9 +55,8 @@ public class gameMain {
                 "Then Shoot your opponent's ship\n" +
                 "Here are the commands\n\n" +
                 "To display help message, type 'help'\n" +
-                ""
+                "To setup a board, type 'init'\n"
         );
-        return;
     }
 
     //private void

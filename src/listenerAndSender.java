@@ -26,7 +26,7 @@ public class listenerAndSender extends Thread {
     public String receiver() throws IOException {
         try {
             String order = inputStream.readLine();
-            System.out.println("Order Received" + order);
+            System.out.println("Order Received: " + order);
             return order;
         } catch (IOException e) {
             System.out.println("Receiver IOException" + e.getMessage());

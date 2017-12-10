@@ -1,12 +1,15 @@
+import java.util.Arrays;
+
 public class map {
 
 
-    public static final int MAX_HEIGHT = 20;
-    public static final int MIN_HEIGHT = 10;
-    public static final int MAX_WIDTH = 20;
-    public static final int MIN_WIDTH = 10;
-    public static final int ship = 1;
-    public static final int explode = 0;
+    private static final int MAX_HEIGHT = 20;
+    private static final int MIN_HEIGHT = 10;
+    private static final int MAX_WIDTH = 20;
+    private static final int MIN_WIDTH = 10;
+    private static final int empty_space = -1;
+    private static final int ship = 1;
+    private static final int explode = 0;
 
     private int height;
     private int width;
@@ -14,6 +17,7 @@ public class map {
     private boolean started = false;
     private boolean ended = false;
     private int[][] board;
+    private int[][] hittedboard;
 
 
     public int getHeight() {
@@ -24,69 +28,74 @@ public class map {
         return width;
     }
 
+    public map(int inputHeight, int inputWidth) throws Exception {
+        setBoard(inputHeight, inputWidth);
+    }
 
 
 
-    public boolean setHeight(final int setHeight) {
+
+    public boolean setHeight(final int setHeight) throws Exception {
         if (setHeight >= MIN_HEIGHT && setHeight <= MAX_HEIGHT) {
             this.height = setHeight;
             return true;
         }
-        return false;
+        throw new Exception("Height out of Range(10-20)!");
     }
 
-    public boolean setWidth(final int setWidth) {
+    public boolean setWidth(final int setWidth) throws Exception {
         if (setWidth >= MIN_WIDTH && setWidth <= MAX_WIDTH) {
             this.width = setWidth;
             return true;
         }
-        return false;
+        throw new Exception("Width out of Range(10-20)!");
     }
-    public boolean setBoard(final int setHeight, final int setWidth) {
+
+    public void setBoard(final int setHeight, final int setWidth) throws Exception{
         if (setHeight(setHeight) && setWidth(setWidth)) {
             boardHasBeenSet = true;
             board = new int[width][height];
-            return true;
+            hittedboard = new int[width][height];
+            Arrays.fill(board, -1);
+            Arrays.fill(board, -1);
+            return;
         }
-        return false;
+        throw new Exception("SetBoard ERROR !");
     }
 
-    public boolean setShip(final int x1, final int y1, final int x2, final int y2) {
+    public void setShip(final int x1, final int y1, final int x2, final int y2) throws Exception {
         if (!boardHasBeenSet) {
-            return false;
+            throw new Exception("The Board has been already setted");
         }
 
         //test in/out of bound;
         if (x1 > width || x2 > width || y1 > height || y2 > height) {
-            return false;
+            String message = "The ship is out of bound (" + width + ", " + height + ") !";
+            throw new Exception(message);
         }
         // test whether diagonal;
         if ((x1 != x2) && (y1 != y2)) {
-            return false;
-        }
-        //test if the position has no ships on it;
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                if (board[i][j] == 1) {
-                    return false;
-                }
-            }
+            throw new Exception("Your ship is neither Horizonal nor Vertical!");
         }
 
         // if valid, then place the ship in the position;
         // class 'ship' needed;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                board[i][j] = ship;
+                if(board[i][j] == empty_space) {
+                    board[i][j] = ship;
+                } else {
+                    throw new Exception("There is already ship(s) in there, please check your map!");
+                }
+
             }
         }
         started = true;
-        return true;
     }
 
-    public boolean shoot(final int x, final int y) {
+    public boolean shoot(final int x, final int y) throws Exception{
         if (!started) {
-            return false;
+            throw new Exception("You cannot shoot before all ships are setted and both player are ready!")
         }
         if (board[x][y] == ship) {
             board[x][y] = explode;
@@ -117,6 +126,10 @@ public class map {
             return true;
         }
         return false;
+    }
+
+    public synchronized map getMap() {
+        return this;
     }
 
 
