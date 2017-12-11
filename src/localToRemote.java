@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
 public class localToRemote extends Thread {
-    private listenerAndSender sender;
+    private listenerAndSender receiver, sender;
     private map localMap;
     private Scanner s;
 
-    public localToRemote(listenerAndSender input, map inputMap) {
+    public localToRemote(listenerAndSender input, listenerAndSender outPut, map inputMap) {
         try {
-            this.sender = input;
+            this.receiver = input;
+            this.sender = outPut;
             this.localMap = inputMap;
         } catch (Exception e) {
             e.printStackTrace();

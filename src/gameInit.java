@@ -36,8 +36,8 @@ public class gameInit {
         String s = lASIn.receiver();
         System.out.println("Game is ready, both maps are initialized");
         System.out.println("Enter 'help' for further help");
-        remote = new remoteToLocal(lASIn, gameMap);
-        local = new localToRemote(lASOut, gameMap);
+        remote = new remoteToLocal(lASIn, lASOut, gameMap);
+        local = new localToRemote(lASIn, lASOut, gameMap);
         local.run();
         remote.run();
 

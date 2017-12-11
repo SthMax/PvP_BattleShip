@@ -1,13 +1,14 @@
 public class remoteToLocal extends Thread {
-    private listenerAndSender receiver;
+    private listenerAndSender receiver, sender;
     private map localMap;
 
-    public remoteToLocal(listenerAndSender input, map inputMap) {
+    public remoteToLocal(listenerAndSender input, listenerAndSender outPut, map inputMap) {
         try {
             this.receiver = input;
+            this.sender = outPut;
             this.localMap = inputMap;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
