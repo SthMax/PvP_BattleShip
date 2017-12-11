@@ -76,9 +76,11 @@ public class localToRemote extends Thread {
             if(received.equals("Yes")) {
                 System.out.println("You Have successfully hitted "
                         + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
-            } else {
+            } else if (received.equals("No")) {
                 System.out.println("There is nothing on "
                         + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+            } else {
+                System.out.println("There is some error with the program, please check");
             }
 
         } catch (Exception e) {
