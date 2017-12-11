@@ -8,7 +8,7 @@ public class listenerAndSender extends Thread {
     private DataOutputStream outputStream;
 
 
-    public listenerAndSender(Socket s) throws IOException {
+    public listenerAndSender(Socket s){
         try {
             connection = s;
             inputStream = new BufferedReader(new InputStreamReader(connection.getInputStream()));

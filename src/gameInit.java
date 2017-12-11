@@ -7,18 +7,19 @@ public class gameInit {
     private boolean mapInitialized = false;
     private remoteToLocal remote;
     private localToRemote local;
-    private listenerAndSender lAS;
+    private listenerAndSender lASIn, lASOut;
     private map gameMap;
 
-    public gameInit(Socket s) throws IOException{
+    public gameInit(Socket sIn, Socket sOut) throws IOException{
         System.out.println("Connected, Starting Game.");
-        connection = s;
-        lAS = new listenerAndSender(s);
+        lASIn = new listenerAndSender(sIn);
+        lASOut = new listenerAndSender(sOut);
         initGameMethod();
     }
 
     private void initGameMethod() throws IOException{
-        lAS.run();
+        lASIn.run();
+        lASOut.run();
         System.out.println("Please Enter the Command");
         System.out.println("Enter 'help' to get help");
         while(!mapInitialized) {
@@ -28,15 +29,15 @@ public class gameInit {
         }
         System.out.println("Waiting for the other player...");
         try {
-            lAS.sender("The Other Side is Ready");
+            lASIn.sender("The Other Side is Ready");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        String s = lAS.receiver();
+        String s = lASIn.receiver();
         System.out.println("Game is ready, both maps are initialized");
         System.out.println("Enter 'help' for further help");
-        remote = new remoteToLocal(lAS, gameMap);
-        local = new localToRemote(lAS, gameMap);
+        remote = new remoteToLocal(lASIn, gameMap);
+        local = new localToRemote(lASOut, gameMap);
         local.run();
         remote.run();
 
