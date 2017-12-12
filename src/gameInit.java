@@ -7,44 +7,44 @@ public class gameInit {
     private boolean mapInitialized = false;
     private remoteToLocal remote;
     private localToRemote local;
-    private listenerAndSender lASIn, lASOut;
+    private listenerAndSender lAS;
+    private boolean serverFlag;
     private map gameMap;
 
-    public gameInit(Socket sIn, Socket sOut) throws IOException{
+    public gameInit(Socket socket, boolean ifServer) {
         System.out.println("Connected, Starting Game.");
-        lASIn = new listenerAndSender(sIn);
-        lASOut = new listenerAndSender(sOut);
+        serverFlag = ifServer;
+        connection = socket;
+        lAS = new listenerAndSender(socket);
         initGameMethod();
     }
 
-    private void initGameMethod() throws IOException{
-        lASIn.run();
-        lASOut.run();
+    private void initGameMethod() {
+        lAS.run();
         System.out.println("Please Enter the Command");
         System.out.println("Enter 'help' to get help");
         while(!mapInitialized) {
             Scanner s = new Scanner(System.in);
             String keyboardInput = s.nextLine();
-            commandSwitcher(keyboardInput.toLowerCase());
+            initCommandSwitcher(keyboardInput.toLowerCase());
         }
         System.out.println("Waiting for the other player...");
         try {
-            lASIn.sender("The Other Side is Ready");
+            lAS.sender("The Other Side is Ready");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        String s = lASIn.receiver();
+        String s = lAS.receiver();
+        lAS.interrupt();
         System.out.println("Game is ready, both maps are initialized");
-        System.out.println("Enter 'help' for further help");
-        remote = new remoteToLocal(lASIn, lASOut, gameMap);
-        local = new localToRemote(lASIn, lASOut, gameMap);
-        local.run();
-        remote.run();
+
+        //local = new localToRemote(connection, gameMap);
+        //local.run();
 
 
     }
 
-    private void commandSwitcher(final String s) {
+    private void initCommandSwitcher(final String s) {
         if (s.equals("help")) {
             helpMethod();
         } else if (s.equals("init")) {
@@ -97,7 +97,6 @@ public class gameInit {
         gameMap.printMap(true);
     }
 
-
     private void helpMethod() {
         System.out.println("Now Displaying the before game helper...\n\n" +
                 "For Battleship Game info, you can check Wiki.\n" +
@@ -109,7 +108,34 @@ public class gameInit {
         );
     }
 
-    //private void
+    private void mainGameMethod() {
+        if(serverFlag) {
+            System.out.println("You Are Going First");
+        } else {
+            System.out.println("You Are Going Second, waiting for your opponent's operation");
+        }
+
+        try {
+            while (true) {
+                if(serverFlag) {
+                    System.out.println("Now It's Your Turn");
+                    local = new localToRemote(connection, gameMap);
+                    local.run();
+                    serverFlag = !serverFlag;
+                    System.out.println("Your Turn is Ended\n");
+                } else {
+                    System.out.println("It's Your Opponent's Turn");
+                    remote = new remoteToLocal(connection, gameMap);
+                    remote.run();
+                    serverFlag = !serverFlag;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("There are some problems with the in-game process!");
+            e.printStackTrace();
+        }
+
+    }
 
 
 }

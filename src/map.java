@@ -138,7 +138,7 @@ public class map {
             outPutMap = this.hittedboard;
         }
         System.out.println();
-        System.out.println("  1234567890\n");
+        System.out.println("  1 2 3 4 5 6 7 8 9 0\n");
         for (int i = 1; i <= height; i++) {
             if (i != height) {
                 System.out.print(i + " ");
@@ -150,9 +150,9 @@ public class map {
                 if (outPutMap[j-1][i-1] == empty_space) {
                     System.out.print(" ");
                 } else if (outPutMap[j-1][i-1] == ship) {
-                    System.out.print("O");
+                    System.out.print("O ");
                 } else if (outPutMap[j-1][i-1] == explode) {
-                    System.out.print("X");
+                    System.out.print("X ");
                 }
             }
             System.out.println();

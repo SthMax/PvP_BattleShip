@@ -1,14 +1,19 @@
 import java.util.Scanner;
+import java.net.Socket;
 
 public class localToRemote extends Thread {
-    private listenerAndSender receiver, sender;
+
+    private static final int NORMAL_CASE = 0, 
+            SHOOTED_CASE = 1, WIN_CASE = 2;
+    
+    private listenerAndSender connector;
     private map localMap;
     private Scanner s;
 
-    public localToRemote(listenerAndSender input, listenerAndSender outPut, map inputMap) {
+    public localToRemote(Socket connection, map inputMap) {
         try {
-            this.sender = input;
-            this.receiver = outPut;
+            this.connector = new listenerAndSender(connection);
+            connector.run();
             this.localMap = inputMap;
         } catch (Exception e) {
             e.printStackTrace();
@@ -19,10 +24,19 @@ public class localToRemote extends Thread {
     @Override
     public void run() {
         s = new Scanner(System.in);
+        int result;
         try {
-            while(!localMap.getWinner()) {
+            while(true) {
                 String command = s.nextLine();
-                commandSwitcher(command.toLowerCase());
+                result = commandSwitcher(command.toLowerCase());
+                if(result == NORMAL_CASE) {
+                    continue;
+                } else if(result == SHOOTED_CASE) {
+                    break;
+                } else if(result == WIN_CASE) {
+                    System.out.println("Exiting session...");
+                    System.exit(1);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,17 +44,21 @@ public class localToRemote extends Thread {
 
     }
 
-    private void commandSwitcher(String str) {
+    private int commandSwitcher(String str) {
         if (str.equals("help")) {
             helpMethod();
+            return NORMAL_CASE;
         } else if (str.equals("shoot")) {
-            shootMethod(str);
+            return shootMethod(str);
         } else if (str.equals("display")) {
             localMap.printMap(true);
+            return NORMAL_CASE;
         } else if (str.equals("displayshooted")) {
             localMap.printMap(false);
+            return NORMAL_CASE;
         } else {
             System.out.println("Illegal Command, please type 'help' for help.");
+            return NORMAL_CASE;
         }
     }
 
@@ -54,10 +72,10 @@ public class localToRemote extends Thread {
         );
     }
 
-    private void shootMethod(String shoot) {
+    private int shootMethod(String shoot) {
         try {
-            sender.sender(shoot);
-            System.out.println(sender.receiver());
+            connector.sender(shoot);
+            System.out.println(connector.receiver());
             String indexNum, received;
             while (true) {
                 System.out.println("Please Input Your Index as 'x,y'");
@@ -71,14 +89,19 @@ public class localToRemote extends Thread {
                 }
                 break;
             }
-            sender.sender(indexNum);
-            received = sender.receiver();
+            connector.sender(indexNum);
+            received = connector.receiver();
             if(received.equals("Yes")) {
                 System.out.println("You Have successfully hitted "
                         + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
             } else if (received.equals("No")) {
                 System.out.println("There is nothing on "
                         + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+            } else if (received.equals("Win")) {
+                System.out.println("You Have successfully hitted "
+                        + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+                System.out.println("Your opponent's every single ship was sunk.\n YOU WIN!");
+                return WIN_CASE;
             } else {
                 System.out.println("There is some error with the program, please check");
             }
@@ -86,6 +109,6 @@ public class localToRemote extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return;
+        return SHOOTED_CASE;
     }
 }

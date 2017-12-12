@@ -1,11 +1,17 @@
+import java.net.Socket;
+
 public class remoteToLocal extends Thread {
-    private listenerAndSender receiver, sender;
+
+    private static final int NORMAL_CASE = 0,
+            SHOOTED_CASE = 1, WIN_CASE = 2;
+
+    private listenerAndSender connector;
     private map localMap;
 
-    public remoteToLocal(listenerAndSender input, listenerAndSender outPut, map inputMap) {
+    public remoteToLocal(Socket connection, map inputMap) {
         try {
-            this.sender = input;
-            this.receiver = outPut;
+            this.connector = new listenerAndSender(connection);
+            connector.run();
             this.localMap = inputMap;
         } catch (Exception e) {
             e.printStackTrace();
@@ -16,9 +22,15 @@ public class remoteToLocal extends Thread {
     @Override
     public void run() {
         try {
-            while(!localMap.getWinner()) {
-                String commandReceived = receiver.receiver();
-                commandSwitcher(commandReceived);
+            while(true) {
+                String commandReceived = connector.receiver();
+                int result = commandSwitcher(commandReceived);
+                if (result == WIN_CASE) {
+                    System.out.println("Exiting session...");
+                    System.exit(1);
+                } else if (result == SHOOTED_CASE) {
+                    break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,30 +38,42 @@ public class remoteToLocal extends Thread {
 
     }
 
-    private void commandSwitcher(String command) {
+    private int commandSwitcher(String command) throws Exception{
         if (command.equals("shoot")) {
-            beingShootMethod();
+            return beingShootMethod();
         }
+        return NORMAL_CASE;
     }
 
-    private void beingShootMethod() {
+    private int beingShootMethod() throws Exception {
         try {
-            receiver.sender("Where do You Want to Shoot?");
-            String indexNum = receiver.receiver();
+            connector.sender("Where do You Want to Shoot?");
+            String indexNum = connector.receiver();
             boolean result = localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0');
-            if(result) {
-                receiver.sender("Yes");
+            if (localMap.getWinner()) {
+                connector.sender("Win");
+                System.out.println("Your opponent has a hit to your ship in: " + indexNum);
+                System.out.println("All Your Ship Was Gone");
+                System.out.println("YOU LOSE");
+                return WIN_CASE;
+            } else if(result) {
+                connector.sender("Yes");
+                System.out.println("Your opponent has a hit to your ship in: " + indexNum);
+                return SHOOTED_CASE;
             } else {
-                receiver.sender("No");
+                connector.sender("No");
+                System.out.println("Your opponent has a hit in: " + indexNum);
+                System.out.println("But there's nothing.");
+                return SHOOTED_CASE;
             }
         } catch (Exception e) {
             try {
-                receiver.sender(e.getMessage());
+                connector.sender(e.getMessage());
             } catch (Exception f) {
                 f.printStackTrace();
             }
         }
-
+        throw new Exception("Something Wrong with the beingshootmethod, check it.");
     }
 
 

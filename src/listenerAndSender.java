@@ -23,18 +23,19 @@ public class listenerAndSender extends Thread {
         System.out.println("Receiver & Sender Established");
     }
 
-    public String receiver() throws IOException {
+    public String receiver() {
         try {
             String order = inputStream.readLine();
-            //System.out.println("Order Received: " + order);
+            System.out.println("Order Received: " + order);
             return order;
         } catch (IOException e) {
-            System.out.println("Receiver IOException" + e.getMessage());
+            System.out.println("Receiver IOException");
+            e.printStackTrace();
         }
-        throw new IOException();
+        return null;
     }
 
-    public void sender(String input) throws Exception {
+    public void sender(String input) {
         if (input.charAt(input.length()-1)!='\n'
                 || input.charAt(input.length()-1)!='\r') {
             input = input + "\n";
@@ -44,6 +45,7 @@ public class listenerAndSender extends Thread {
             return;
         } catch (IOException e) {
             System.out.println("Sender IOException");
+            e.printStackTrace();
         }
     }
 
