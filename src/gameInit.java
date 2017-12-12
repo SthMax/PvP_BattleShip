@@ -72,10 +72,10 @@ public class gameInit {
         System.out.println("If there is a one-block ship, please enter as x1,y1,x1,y1");
 
         int i = gameMap.shipLimit;
+        Scanner scanner = new Scanner(System.in);
 
         while (i > 0) {
             System.out.println("You need to set a " + i + " block ship now, please enter your index for it");
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (input.length() != 7) {
                 System.out.println("Your Input format is not correct, please enter again");
@@ -84,6 +84,7 @@ public class gameInit {
             try {
                 gameMap.setShip(input.charAt(0) - '0', input.charAt(2) - '0',
                         input.charAt(4) - '0', input.charAt(6) - '0', i);
+                this.wait(50);
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;

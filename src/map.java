@@ -72,7 +72,7 @@ public class map {
 
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                if(board[i-1][j-1] != empty_space) {
+                if(board[i][j] != empty_space) {
                     throw new Exception("There is already ship(s) in there, please check your map!");
                 }
             }
@@ -82,7 +82,7 @@ public class map {
         // class 'ship' needed;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                board[i-1][j-1] = ship;
+                board[i][j] = ship;
                 shipSpacesCount++;
             }
         }
@@ -104,19 +104,19 @@ public class map {
             throw new Exception("You cannot shoot before all ships are set and both player are ready!");
         }
 
-        if (x > width || y > height) {
+        if (x >= width || y >= height) {
             throw new Exception("This shot is out of map");
         }
 
         if (!forValidation) {
-            if (board[x-1][y-1] == ship) {
-                board[x-1][y-1] = explode;
+            if (board[x][y] == ship) {
+                board[x][y] = explode;
                 return true;
             }
-            board[x-1][y-1] = explode;
+            board[x][y] = explode;
             return false;
         } else {
-            if (hittedboard[x-1][y-1] == empty_space) {
+            if (hittedboard[x][y] == empty_space) {
                 return true;
             }
             return false;
@@ -125,7 +125,7 @@ public class map {
 
     public void shootOnOtherMaps(final int x, final int y, final boolean hitOrNot) {
         try {
-            this.hittedboard[x-1][y-1] = hitOrNot? hitted:notHit;
+            this.hittedboard[x][y] = hitOrNot? hitted:notHit;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,7 +138,7 @@ public class map {
         }
         for (int i = 1; i <= width; i++) {
             for (int j = 1; j <= height; j++) {
-                if (board[i-1][j-1] == ship) {
+                if (board[i][j] == ship) {
                     return false;
                 }
             }
@@ -156,24 +156,20 @@ public class map {
             outPutMap = this.hittedboard;
         }
         System.out.println();
-        System.out.println("  1 2 3 4 5 6 7 8 9 0");
-        for (int i = 1; i <= height; i++) {
-            if (i != height) {
-                System.out.print(i + " ");
-            } else {
-                System.out.print(0 + " ");
-            }
+        System.out.println("  0 1 2 3 4 5 6 7 8 9");
+        for (int i = 0; i <= outPutMap[0].length; i++) {
+            System.out.print(i + " ");
 
-            for (int j = 1; j <= width; j++) {
-                if (outPutMap[j-1][i-1] == empty_space) {
+            for (int j = 1; j <= outPutMap.length; j++) {
+                if (outPutMap[j][i] == empty_space) {
                     System.out.print("  ");
-                } else if (outPutMap[j-1][i-1] == ship) {
+                } else if (outPutMap[j][i] == ship) {
                     System.out.print("O ");
-                } else if (outPutMap[j-1][i-1] == explode) {
+                } else if (outPutMap[j][i] == explode) {
                     System.out.print("X ");
-                } else if (outPutMap[j-1][i-1] == hitted) {
+                } else if (outPutMap[j][i] == hitted) {
                     System.out.print("Y ");
-                } else if (outPutMap[j-1][i-1] == notHit) {
+                } else if (outPutMap[j][i] == notHit) {
                     System.out.print("N ");
                 }
             }
