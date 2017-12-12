@@ -21,7 +21,9 @@ public class localToRemote extends Thread {
         s = new Scanner(System.in);
         try {
             while(!localMap.getWinner()) {
+                s.notify();
                 String command = s.nextLine();
+                s.wait();
                 commandSwitcher(command.toLowerCase());
             }
         } catch (Exception e) {
@@ -60,8 +62,10 @@ public class localToRemote extends Thread {
             System.out.println(sender.receiver());
             String indexNum, received;
             while (true) {
+                s.notify();
                 System.out.println("Please Input Your Index as 'x,y'");
                 indexNum = s.nextLine();
+                s.wait();
                 try {
                     localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0');
                 } catch (Exception f) {
@@ -86,7 +90,6 @@ public class localToRemote extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return;
     }
 }
