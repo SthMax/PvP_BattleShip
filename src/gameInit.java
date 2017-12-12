@@ -78,7 +78,7 @@ public class gameInit {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (input.length() != 7) {
-                System.out.println("Your Total format is not correct, please enter again");
+                System.out.println("Your Input format is not correct, please enter again");
                 continue;
             }
             try {

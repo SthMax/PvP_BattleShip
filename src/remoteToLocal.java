@@ -52,17 +52,17 @@ public class remoteToLocal extends Thread {
             boolean result = localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0', false);
             if (localMap.getWinner()) {
                 connector.sender("Win");
-                System.out.println("Your opponent has a hit to your ship in: " + indexNum);
+                System.out.println("Your opponent has a hit to your ship in: " + indexNum + "\n");
                 System.out.println("All Your Ship Was Gone");
                 System.out.println("YOU LOSE");
                 return WIN_CASE;
             } else if(result) {
                 connector.sender("Yes");
-                System.out.println("Your opponent has a hit to your ship in: " + indexNum);
+                System.out.println("Your opponent has a hit to your ship in: " + indexNum + "\n");
                 return SHOOTED_CASE;
             } else {
                 connector.sender("No");
-                System.out.println("Your opponent has a hit in: " + indexNum);
+                System.out.println("Your opponent has a hit in: " + indexNum + "\n");
                 System.out.println("But there's nothing.");
                 return SHOOTED_CASE;
             }
