@@ -113,6 +113,7 @@ public class map {
                 board[x-1][y-1] = explode;
                 return true;
             }
+            board[x-1][y-1] = explode;
             return false;
         }
         return false;

@@ -92,11 +92,11 @@ public class localToRemote extends Thread {
             connector.sender(indexNum);
             received = connector.receiver();
             if(received.equals("Yes")) {
-                System.out.println("You Have successfully hitted "
-                        + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+                System.out.println("You Have successfully hitted " + indexNum);
+                localMap.shootOnOtherMaps((indexNum.charAt(0) - '0'), (indexNum.charAt(2) - '0'), true);
             } else if (received.equals("No")) {
-                System.out.println("There is nothing on "
-                        + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
+                System.out.println("There is nothing on " + indexNum);
+                localMap.shootOnOtherMaps((indexNum.charAt(0) - '0'), (indexNum.charAt(2) - '0'), false);
             } else if (received.equals("Win")) {
                 System.out.println("You Have successfully hitted "
                         + (indexNum.charAt(0) - '0') + ", " + (indexNum.charAt(2) - '0'));
