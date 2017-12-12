@@ -35,7 +35,10 @@ public class listenerAndSender extends Thread {
     }
 
     public void sender(String input) throws Exception {
-        input += System.lineSeparator();
+        if (input.charAt(input.length()-1)!='\n'
+                || input.charAt(input.length()-1)!='\r') {
+            input = input + "\n";
+        }
         try {
             outputStream.write(input.getBytes(Charset.forName("UTF-8")));
             return;
