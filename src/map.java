@@ -115,8 +115,12 @@ public class map {
             }
             board[x-1][y-1] = explode;
             return false;
+        } else {
+            if (hittedboard[x-1][y-1] == empty_space) {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     public void shootOnOtherMaps(final int x, final int y, final boolean hitOrNot) {
