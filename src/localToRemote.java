@@ -81,7 +81,7 @@ public class localToRemote extends Thread {
                 System.out.println("Please Input Your Index as 'x,y'");
                 indexNum = s.nextLine();
                 try {
-                    localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0');
+                    localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0', true);
                 } catch (Exception f) {
                     f.printStackTrace();
                     System.out.println("Please Try again\n");

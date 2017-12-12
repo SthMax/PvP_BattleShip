@@ -49,7 +49,7 @@ public class remoteToLocal extends Thread {
         try {
             connector.sender("Where do You Want to Shoot?");
             String indexNum = connector.receiver();
-            boolean result = localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0');
+            boolean result = localMap.shoot(indexNum.charAt(0) - '0', indexNum.charAt(2) - '0', false);
             if (localMap.getWinner()) {
                 connector.sender("Win");
                 System.out.println("Your opponent has a hit to your ship in: " + indexNum);

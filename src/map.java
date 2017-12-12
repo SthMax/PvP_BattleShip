@@ -8,6 +8,8 @@ public class map {
     private static final int empty_space = 0;
     private static final int ship = 1;
     private static final int explode = -1;
+    private static final int hitted = 3;
+    private static final int notHit = 4;
 
     private int height;
     private int width;
@@ -97,7 +99,7 @@ public class map {
     }
 
 
-    public boolean shoot(final int x, final int y) throws Exception{
+    public boolean shoot(final int x, final int y, final boolean forValidation) throws Exception{
         if (!started) {
             throw new Exception("You cannot shoot before all ships are set and both player are ready!");
         }
@@ -106,12 +108,23 @@ public class map {
             throw new Exception("This shot is out of map");
         }
 
-
-        if (board[x-1][y-1] == ship) {
-            board[x-1][y-1] = explode;
-            return true;
+        if (!forValidation) {
+            if (board[x-1][y-1] == ship) {
+                board[x-1][y-1] = explode;
+                return true;
+            }
+            return false;
         }
         return false;
+    }
+
+    public void shootOnOtherMaps(final int x, final int y, final boolean hitOrNot) {
+        try {
+            this.hittedboard[x-1][y-1] = hitOrNot? hitted:notHit;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public boolean getWinner() throws Exception {
@@ -138,7 +151,7 @@ public class map {
             outPutMap = this.hittedboard;
         }
         System.out.println();
-        System.out.println("  1 2 3 4 5 6 7 8 9 0\n");
+        System.out.println("  1 2 3 4 5 6 7 8 9 0");
         for (int i = 1; i <= height; i++) {
             if (i != height) {
                 System.out.print(i + " ");
@@ -153,6 +166,10 @@ public class map {
                     System.out.print("O ");
                 } else if (outPutMap[j-1][i-1] == explode) {
                     System.out.print("X ");
+                } else if (outPutMap[j-1][i-1] == hitted) {
+                    System.out.print("Y ");
+                } else if (outPutMap[j-1][i-1] == notHit) {
+                    System.out.print("N ");
                 }
             }
             System.out.println();
