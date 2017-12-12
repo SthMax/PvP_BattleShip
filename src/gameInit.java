@@ -40,7 +40,7 @@ public class gameInit {
 
         //local = new localToRemote(connection, gameMap);
         //local.run();
-
+        mainGameMethod();
 
     }
 
