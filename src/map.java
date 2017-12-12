@@ -104,7 +104,7 @@ public class map {
             throw new Exception("You cannot shoot before all ships are set and both player are ready!");
         }
 
-        if (x >= width || y >= height) {
+        if (x >= width || y >= height || x < 0 || y < 0) {
             throw new Exception("This shot is out of map");
         }
 
@@ -157,10 +157,10 @@ public class map {
         }
         System.out.println();
         System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        for (int i = 0; i <= outPutMap[0].length; i++) {
+        for (int i = 0; i < outPutMap[0].length; i++) {
             System.out.print(i + " ");
 
-            for (int j = 1; j <= outPutMap.length; j++) {
+            for (int j = 0; j < outPutMap.length; j++) {
                 if (outPutMap[j][i] == empty_space) {
                     System.out.print("  ");
                 } else if (outPutMap[j][i] == ship) {
@@ -171,6 +171,12 @@ public class map {
                     System.out.print("Y ");
                 } else if (outPutMap[j][i] == notHit) {
                     System.out.print("N ");
+                } else {
+                    try {
+                        throw new Exception("There is some problems with printmap");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             System.out.println();

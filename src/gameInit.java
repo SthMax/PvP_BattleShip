@@ -84,7 +84,7 @@ public class gameInit {
             try {
                 gameMap.setShip(input.charAt(0) - '0', input.charAt(2) - '0',
                         input.charAt(4) - '0', input.charAt(6) - '0', i);
-                this.wait(50);
+                //this.wait(50);
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;
