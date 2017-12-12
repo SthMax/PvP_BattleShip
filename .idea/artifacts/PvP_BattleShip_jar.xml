@@ -2,6 +2,9 @@
   <artifact type="jar" name="PvP BattleShip:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/PvP_BattleShip_jar</output-path>
     <root id="archive" name="PvP BattleShip.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="PvP BattleShip" />
     </root>
   </artifact>

@@ -166,7 +166,7 @@ public class map {
 
             for (int j = 1; j <= width; j++) {
                 if (outPutMap[j-1][i-1] == empty_space) {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 } else if (outPutMap[j-1][i-1] == ship) {
                     System.out.print("O ");
                 } else if (outPutMap[j-1][i-1] == explode) {
