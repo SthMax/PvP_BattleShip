@@ -21,7 +21,6 @@ public class localToRemote extends Thread {
         s = new Scanner(System.in);
         try {
             while(!localMap.getWinner()) {
-                s.notify();
                 String command = s.nextLine();
                 s.wait();
                 commandSwitcher(command.toLowerCase());
@@ -90,6 +89,7 @@ public class localToRemote extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        s.notify();
         return;
     }
 }
