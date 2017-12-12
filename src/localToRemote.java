@@ -7,8 +7,8 @@ public class localToRemote extends Thread {
 
     public localToRemote(listenerAndSender input, listenerAndSender outPut, map inputMap) {
         try {
-            this.receiver = input;
-            this.sender = outPut;
+            this.sender = input;
+            this.receiver = outPut;
             this.localMap = inputMap;
         } catch (Exception e) {
             e.printStackTrace();
