@@ -56,6 +56,14 @@ public class localToRemote extends Thread {
         } else if (str.equals("displayshooted")) {
             localMap.printMap(false);
             return NORMAL_CASE;
+        } else if (str.equals("concede")) {
+            connector.sender("concede");
+            System.out.println("Without honor, You Concede Before The Game Ends");
+            System.out.println("YOU LOSE!");
+            System.out.println(":P\n");
+            System.out.println("Exiting session...");
+            System.exit(1);
+            return NORMAL_CASE;
         } else {
             System.out.println("Illegal Command, please type 'help' for help.");
             return NORMAL_CASE;
@@ -68,7 +76,8 @@ public class localToRemote extends Thread {
                 "To display this help message, type 'help'\n" +
                 "To shoot your opponent, type 'shoot'\n" +
                 "To display your map, type 'display'\n" +
-                "To display your shooted map, type 'displayshooted'\n"
+                "To display your shooted map, type 'displayshooted'\n" +
+                "To concede, type 'concede'\n"
         );
     }
 

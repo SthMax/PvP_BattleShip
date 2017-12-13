@@ -41,6 +41,11 @@ public class remoteToLocal extends Thread {
     private int commandSwitcher(String command) throws Exception{
         if (command.equals("shoot")) {
             return beingShootMethod();
+        } else if (command.equals("concede")) {
+            System.out.println("Your opponent was scared by your amazing tactics and ran away");
+            System.out.println("You Win!");
+            System.out.println(":D");
+            return WIN_CASE;
         }
         return NORMAL_CASE;
     }
